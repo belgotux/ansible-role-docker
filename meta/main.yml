@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: docker
   author: belgotux
   description: Role to install/update docker and docker-compose, install pip dependancies for ansible and installed aliases
   license: GPL-3.0-or-later
