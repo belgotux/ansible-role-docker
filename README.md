@@ -3,7 +3,7 @@ Docker-install
 
 Install/update `docker` and `docker-compose` to Ubuntu/debian servers.
 Also install pip dependancies `docker` and `docker-compose` for Ansible.
-Installed aliases file that can be use in `.bash_rc` manually with `source /usr/share/.bash_aliases.d/docker.aliases` or `source ~/.bash_aliases.d/docker.aliases` according to the `bash_alias_shared` variable. It can be used automatically with the [basic role](../basic/README.md)
+Installed aliases file that can be use in `.bash_rc` manually with `source /usr/share/.bash_aliases.d/docker.aliases` or `source ~/.bash_aliases.d/docker.aliases` according to the `bash_alias_shared` variable. It can be used automatically with the [basic role](https://galaxy.ansible.com/belgotux/basic) ([Github](https://github.com/belgotux/ansible-role-basic))
 
 Requirements
 ------------
