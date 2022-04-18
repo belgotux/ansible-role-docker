@@ -1,0 +1,16 @@
+# get last bin
+- name: Install docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Add autocompletion file
+  get_url:
+    url: https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose
+    dest: /etc/bash_completion.d/docker-compose
+    owner: root
+    group: root
+    mode: '0644'

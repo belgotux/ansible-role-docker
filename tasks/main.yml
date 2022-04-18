@@ -1,0 +1,11 @@
+---
+# tasks file for docker
+- import_tasks: install-docker.yml
+  become: yes
+- import_tasks: install-docker-compose.yml
+  become: yes
+- import_tasks: alias-docker-compose.yml
+- import_tasks: pip-docker.yml
+  become: yes
+- import_tasks: networks.yml
+  become: yes

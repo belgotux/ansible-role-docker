@@ -1,0 +1,8 @@
+- name: Add external network(s)
+  community.docker.docker_network:
+    name: "{{item.name}}"
+    state: present
+    ipam_config:
+      - subnet: "{{item.subnet}}"
+        gateway: "{{item.gateway}}"
+  loop: "{{networks}}"

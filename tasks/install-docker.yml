@@ -1,0 +1,44 @@
+#docker-ce docker-ce-cli containerd.io
+---
+- name: Install requirements
+  apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: latest
+    update_cache: yes
+- name: Install GPG key
+  apt_key:
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    url: https://download.docker.com/linux/{{ansible_facts['distribution']|lower}}/gpg
+    keyring: /etc/apt/trusted.gpg.d/docker-archive-keyring.gpg
+    state: present
+
+- name: get release
+  command: lsb_release -cs
+  register: release
+  changed_when: false
+- name: Install apt sources list
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/{{ansible_facts['distribution']|lower}} {{release.stdout}} stable"
+    filename: docker
+    state: present
+
+- name: Install docker Engine
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+    update_cache: yes
+
+- name: Add extra users to docker group
+  user:
+    name: "{{item}}"
+    groups: docker
+    append: yes
+  loop: "{{extra_users}}"
+  when: extra_users is defined

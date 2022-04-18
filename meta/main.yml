@@ -1,0 +1,23 @@
+galaxy_info:
+  author: belgotux
+  description: Role to install/update docker and docker-compose, install pip dependancies for ansible and installed aliases
+  license: GPL-3.0-or-later
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Debian
+    versions:
+    - 10
+    - 11
+  - name: Ubuntu
+    versions:
+    - focal
+
+  galaxy_tags: 
+  - docker
+
+collections:
+  - community.docker
+
+dependencies: []
