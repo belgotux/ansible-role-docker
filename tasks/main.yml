@@ -1,11 +1,19 @@
 ---
 # tasks file for docker
 - import_tasks: install-docker.yml
-  become: yes
+  become: true
+  tags: install
 - import_tasks: install-docker-compose.yml
-  become: yes
+  become: true
+  tags: install
+- import_tasks: users.yml
+  become: true
+  tags: install
 - import_tasks: alias-docker-compose.yml
+  tags: configure
 - import_tasks: pip-docker.yml
-  become: yes
+  become: true
+  tags: configure
 - import_tasks: networks.yml
-  become: yes
+  become: true
+  tags: configure

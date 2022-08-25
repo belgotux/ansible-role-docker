@@ -35,10 +35,11 @@
     state: latest
     update_cache: yes
 
-- name: Add extra users to docker group
-  user:
-    name: "{{item}}"
-    groups: docker
-    append: yes
-  loop: "{{extra_users}}"
-  when: extra_users is defined
+- name: copy daemon.json
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0664'
+  notify: restart docker

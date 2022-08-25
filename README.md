@@ -15,7 +15,7 @@ Role Variables
 The role can work as it with the [default configuration](defaults/main.yml).
 
 ### Optional
-- `extra_users` list of users who need to run docker
+- `docker_extra_users` list of users who need to run docker
 - `bash_alias_shared` enable shared alias (Installed alias in /usr/share only **with root user ONLY** via `remote_user` or `become` in your playbook) (default no to install only for `remote_user` in his homepath)
 - `bash_alias_dir_share`: (default /usr/share)
 - `networks` list of externel network to add in this format :
@@ -39,14 +39,14 @@ Example Playbook
     - name: docker
       vars:
         bash_alias_shared: yes
-        networks:
+        docker_networks:
         - name: proxy-net
           subnet: 10.10.11.0/24
           gateway: 10.10.11.1
         - name: dns-net
           subnet: 10.10.12.0/24
           gateway: 10.10.12.1
-        extra_users:
+        docker_extra_users:
         - belgotux
 ```
 
@@ -59,11 +59,11 @@ Example Playbook
     - name: docker
       vars:
         bash_alias_shared: no
-        networks:
+        docker_networks:
         - name: proxy-net
           subnet: 10.10.11.0/24
           gateway: 10.10.11.1
-        extra_users:
+        docker_extra_users:
         - belgotux
 ```
 

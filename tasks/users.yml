@@ -1,0 +1,15 @@
+- name: Add extra users to docker group
+  user:
+    name: "{{item}}"
+    groups: docker
+    append: yes
+  loop: "{{docker_extra_users}}"
+  when: docker_extra_users is defined
+
+- name: Allow users of docker group to create folder in /etc/docker
+  file:
+    name: "/etc/docker"
+    state: directory
+    owner: "root"
+    group: "docker"
+    mode: 0775

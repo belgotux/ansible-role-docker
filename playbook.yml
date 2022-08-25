@@ -3,15 +3,4 @@
   remote_user: root
 
   roles:
-    - name: docker
-      vars:
-        bash_alias_shared: yes
-        networks:
-        - name: proxy-net
-          subnet: 10.10.11.0/24
-          gateway: 10.10.11.1
-        - name: dns-net
-          subnet: 10.10.12.0/24
-          gateway: 10.10.12.1
-        extra_users:
-          - belgotux
+    - role: docker
