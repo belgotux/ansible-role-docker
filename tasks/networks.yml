@@ -6,3 +6,4 @@
       - subnet: "{{item.subnet}}"
         gateway: "{{item.gateway}}"
   loop: "{{docker_networks}}"
+  when: docker_networks is defined
