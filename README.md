@@ -16,7 +16,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 
 ### Optional
 - `docker_extra_users` list of users who need to run docker
-- `bash_alias_shared` enable shared alias (Installed alias in /usr/share only **with root user ONLY** via `remote_user` or `become` in your playbook) (default no to install only for `remote_user` in his homepath)
+- `bash_alias_shared` enable shared alias (Installed alias in /usr/share only with root user ONLY via `remote_user` or `become` in your playbook) (default no to install only for `remote_user` in his homepath)
 - `bash_alias_dir_share`: (default /usr/share)
 - `networks` list of externel network to add in this format :
 ```yml
