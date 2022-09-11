@@ -13,3 +13,32 @@
     owner: "root"
     group: "docker"
     mode: 0775
+
+- name: Allow users of {{granded_group_to_data}} to navigate to {{docker_path}}
+  file:
+    name: "{{docker_path}}"
+    state: directory
+    owner: "root"
+    group: "{{granded_group_to_data}}"
+    mode: g+x
+  when: granded_group_to_data is defined
+
+- name: Allow users of {{granded_group_to_data}} to show folders {{granded_read_paths|join(',')}}
+  file:
+    name: "{{item}}"
+    state: directory
+    owner: "root"
+    group: "{{granded_group_to_data}}"
+    mode: g+rxs
+  loop: "{{granded_read_paths}}"
+  when: granded_group_to_data is defined and granded_read_paths is defined
+
+- name: Allow users of {{granded_group_to_data}} to write folders {{granded_write_paths|join(',')}}
+  file:
+    name: "{{item}}"
+    state: directory
+    owner: "root"
+    group: "{{granded_group_to_data}}"
+    mode: g+rwxs
+  loop: "{{granded_write_paths}}"
+  when: granded_group_to_data is defined and granded_write_paths is defined

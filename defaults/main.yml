@@ -3,3 +3,5 @@
 bash_alias_dir_share: /usr/share
 bash_alias_shared: no
 bash_alias_dir: "{% if bash_alias_shared %}{{bash_alias_dir_share}}{% else %}{{ansible_env.HOME}}{% endif %}"
+
+docker_path: /var/lib/docker

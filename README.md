@@ -24,6 +24,11 @@ The role can work as it with the [default configuration](defaults/main.yml).
    subnet: 10.10.11.0/24
    gateway: 10.10.11.1
 ```
+- `docker_path` specified root directory of docker for settings rights (default /var/lib/docker)
+- `docker_data_path` path you choose to put persistent data
+- `granded_group_to_data` group to give access to
+- `granded_read_paths` list of paths to give read access
+- `granded_write_paths` list of paths to give write access
 
 ### Automatic
 - `bash_alias_dir` generate on the `bash_alias_shared` flag
