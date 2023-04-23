@@ -5,5 +5,6 @@
     ipam_config:
       - subnet: "{{item.subnet}}"
         gateway: "{{item.gateway}}"
+    scope: "{% if docker_swarm is defined and docker_swarm %}swarm{% else %}local{% endif %}"
   loop: "{{docker_networks}}"
   when: docker_networks is defined

@@ -29,6 +29,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `granded_group_to_data` group to give access to
 - `granded_read_paths` list of paths to give read access
 - `granded_write_paths` list of paths to give write access
+- `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 
 ### Automatic
 - `bash_alias_dir` generate on the `bash_alias_shared` flag
