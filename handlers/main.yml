@@ -4,7 +4,3 @@
     name: docker
     state: restarted
     daemon_reload: no
-  retries: 5
-  delay: 3
-  register: result
-  until: result.rc == 0
