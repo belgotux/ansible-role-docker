@@ -17,3 +17,7 @@
 - import_tasks: networks.yml
   become: true
   tags: configure
+- import_tasks: change-dir.yml
+  become: true
+  tags: configure
+  when: docker_path != '/var/lib/docker' or docker_volumes is defined

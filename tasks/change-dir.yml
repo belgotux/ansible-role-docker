@@ -1,0 +1,33 @@
+- name: Check if folder {{ docker_path }} exist
+  stat:
+    path: '{{ docker_path }}'
+  register: docker_old_path
+- name: Stop docker
+  systemd:
+    name: docker
+    state: stopped
+  when: not docker_old_path.stat.exists
+
+- name: Move docker root dir
+  command: mv /var/lib/docker {{ docker_path }}
+  args:
+    removes: '/var/lib/docker'
+    creates: '{{ docker_path }}'
+  notify: restart docker
+
+- name: Check if folder {{ docker_path }}/volumes exist
+  stat:
+    path: '{{ docker_path }}/volumes'
+  register: docker_old_volumes_path
+- name: Move volumes directory
+  command: mv {{ docker_path }}/volumes {{ docker_volumes }}
+  args:
+    removes: '{{ docker_path }}/volumes'
+    creates: '{{ docker_volumes }}'
+  notify: restart docker
+- name: Create volumes symbolic link 
+  file:
+   src: '{{ docker_volumes }}'
+   dest: '{{ docker_path }}/volumes'
+   state: link
+  when: docker_old_volumes_path.stat.exists
