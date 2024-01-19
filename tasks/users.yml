@@ -29,7 +29,7 @@
     state: directory
     owner: "root"
     group: "{{granded_group_to_data}}"
-    mode: g+rxs
+    mode: u+rx,g+rxs
   loop: "{{granded_read_paths}}"
   when: granded_group_to_data is defined and granded_read_paths is defined
 
@@ -39,6 +39,6 @@
     state: directory
     owner: "root"
     group: "{{granded_group_to_data}}"
-    mode: g+rwxs
+    mode: u+rwx,g+rwxs
   loop: "{{granded_write_paths}}"
   when: granded_group_to_data is defined and granded_write_paths is defined
