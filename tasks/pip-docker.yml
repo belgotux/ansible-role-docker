@@ -6,6 +6,15 @@
 - name: Add pip lib for docker
   pip:
     name: 
+    # last version 2.32.0 to 2.32.3 have break parsing from may 2024... https://stackoverflow.com/questions/64952238/docker-errors-dockerexception-error-while-fetching-server-api-version#64953813
+      - requests==2.31.0 
       - docker
-      - docker-compose
     state: latest
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "20"
+
+- name: Add pip lib from Debian repo for docker
+  apt:
+    name: 
+      - python3-docker
+    state: latest
+  when: (ansible_distribution == "Debian" and ansible_distribution_major_version >= "11")
