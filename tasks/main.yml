@@ -5,6 +5,7 @@
   tags: install
 - import_tasks: install-docker-compose.yml
   become: true
+  when: docker_compose_install
   tags: install
 - import_tasks: users.yml
   become: true

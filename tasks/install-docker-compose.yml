@@ -1,16 +1,25 @@
 # get last bin
-- name: Install docker-compose
+- name: Install docker-compose plugin
+  apt:
+    pkg:
+      - docker-compose-plugin
+    state: latest
+  when: docker_compose_use_repository
+
+- name: Install docker-compose standalone
   get_url:
-    url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     owner: root
     group: root
     mode: '0755'
+  when: not docker_compose_use_repository
 
 - name: Add autocompletion file
   get_url:
-    url: https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose
+    url: https://raw.githubusercontent.com/docker/compose/{{ docker_compose_version }}/contrib/completion/bash/docker-compose
     dest: /etc/bash_completion.d/docker-compose
     owner: root
     group: root
     mode: '0644'
+  when: not docker_compose_use_repository

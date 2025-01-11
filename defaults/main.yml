@@ -11,6 +11,10 @@ docker_log_driver: local
 docker_log_max_size: 10m
 docker_log_max_files: 10
 
+docker_compose_install: true
+docker_compose_use_repository: false
+docker_compose_version: 1.29.2
+
 docker_bash_alias: true
 docker_bash_alias_shared: true
 docker_bash_alias_dir_share: /usr/share

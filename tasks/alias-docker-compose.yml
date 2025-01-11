@@ -1,20 +1,23 @@
 # Alias bash
+- name: set variable for docker-compose
+  set_fact:
+    _docker_compose_bin: '{% if docker_compose_use_repository %}docker compose{% else %} docker-compose{% endif %}'
 - name: check if basic aliases is used
   stat:
     path: "{{docker_bash_alias_dir}}/.bash_aliases.d"
-  register: is_basic_aliases_enabled
+  register: _docker_is_basic_aliases_enabled
   when: docker_bash_alias_dir is defined
 
 - name: Install Docker Aliases Files in {{docker_bash_alias_dir}}
   copy:
     content: |
-      alias dcupd='docker-compose up -d'
-      alias dcupdebug='docker-compose --profile debug up -d && docker-compose logs -f'
-      alias dcdown='docker-compose down'
-      alias dcdownv='docker-compose down -v'
-      alias dc='docker-compose'
+      alias dcupd='{{ _docker_compose_bin }} up -d'
+      alias dcupdebug='{{ _docker_compose_bin }} --profile debug up -d && {{ _docker_compose_bin }} logs -f'
+      alias dcdown='{{ _docker_compose_bin }} down'
+      alias dcdownv='{{ _docker_compose_bin }} down -v'
+      alias dc='{{ _docker_compose_bin }}'
       alias dfh='df -h | grep -v /var/lib/docker/'
       alias dtest='docker run --name test --rm -it debian:11-slim /bin/bash'
     dest: "{{docker_bash_alias_dir}}/.bash_aliases.d/docker.aliases"
     mode: '0644'
-  when: docker_bash_alias_dir is defined and is_basic_aliases_enabled.stat.exists
+  when: docker_bash_alias_dir is defined and _docker_is_basic_aliases_enabled.stat.exists
