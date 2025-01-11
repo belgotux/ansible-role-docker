@@ -14,11 +14,15 @@ Role Variables
 --------------
 The role can work as it with the [default configuration](defaults/main.yml).
 
+### Needed
+- `docker_data_path` path you choose to put persistent data
+
 ### Optional
 - `docker_extra_users` list of users who need to run docker
+- `docker_bash_alias` install docker and docker-compose aliases (default `true`)
 - `docker_bash_alias_shared` enable shared alias (Installed alias in /usr/share only with root user ONLY via `remote_user` or `become` in your playbook) (default no to install only for `remote_user` in his homepath)
 - `docker_bash_alias_dir_share`: (default /usr/share)
-- `networks` list of externel network to add in this format :
+- `docker_networks` list of externel network to add in this format :
 ```yml
    - name: proxy-net
    subnet: 10.10.11.0/24
@@ -30,6 +34,15 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `docker_granded_group_to_data` group to give access to
 - `docker_granded_read_paths` list of paths to give read access
 - `docker_granded_write_paths` list of paths to give write access
+- `docker_log_driver`: change docker driver (default `local`)
+- `docker_log_max_size`: file size (default `10m`)
+- `docker_log_max_files`: number of log files (default `10`)
+- `docker_compose_install`: Install docker compose (default `true`)
+- `docker_compose_use_repository`: Install the docker compose plugin (true) or standalone (false) (default standalone `false`)
+- `docker_compose_version`: standalone version to install (default `1.29.2`)
+- `docker_apt_key`: key id and url (default official docker.com)
+- `docker_apt_repo`: apt line to docker repo (default official docker.com)
+
 - `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 
 ### Automatic
@@ -39,7 +52,7 @@ Example Playbook
 ----------------
 ### as root
 ```yml
-- hosts: clusters
+- hosts: all
   remote_user: root
 
   roles:
