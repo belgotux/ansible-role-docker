@@ -24,10 +24,11 @@
   args:
     removes: '{{ docker_path }}/volumes'
     creates: '{{ docker_volumes }}'
+  when: docker_volumes is defined
   notify: restart docker
 - name: Create volumes symbolic link 
   file:
    src: '{{ docker_volumes }}'
    dest: '{{ docker_path }}/volumes'
    state: link
-  when: docker_old_volumes_path.stat.exists
+  when: docker_volumes is defined and docker_old_volumes_path.stat.exists
