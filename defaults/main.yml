@@ -1,10 +1,13 @@
 ---
 # Installed alias in /usr/share (only with root remote_user)
-bash_alias_dir_share: /usr/share
-bash_alias_dir: "{% if bash_alias_shared is defined and bash_alias_shared %}{{bash_alias_dir_share}}{% else %}{{ansible_env.HOME}}{% endif %}"
 
 docker_path: /var/lib/docker
 docker_internal_dns: '["1.1.1.1","1.0.0.1"]'
 docker_log_driver: local
 docker_log_max_size: 10m
 docker_log_max_files: 10
+
+docker_bash_alias: true
+docker_bash_alias_shared: true
+docker_bash_alias_dir_share: /usr/share
+docker_bash_alias_dir: "{% if docker_bash_alias_shared is defined and docker_bash_alias_shared %}{{docker_bash_alias_dir_share}}{% else %}{{ansible_env.HOME}}{% endif %}"

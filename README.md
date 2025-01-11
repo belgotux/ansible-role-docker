@@ -3,7 +3,7 @@ Docker-install
 
 Install/update `docker` and `docker-compose` to Ubuntu/debian servers.
 Also install pip dependancies `docker` and `docker-compose` for Ansible.
-Installed aliases file that can be use in `.bash_rc` manually with `source /usr/share/.bash_aliases.d/docker.aliases` or `source ~/.bash_aliases.d/docker.aliases` according to the `bash_alias_shared` variable. It can be used automatically with the [basic role](https://galaxy.ansible.com/belgotux/basic) ([Github](https://github.com/belgotux/ansible-role-basic))
+Installed aliases file that can be use in `.bash_rc` manually with `source /usr/share/.bash_aliases.d/docker.aliases` or `source ~/.bash_aliases.d/docker.aliases` according to the `docker_bash_alias_shared` variable. It can be used automatically with the [basic role](https://galaxy.ansible.com/belgotux/basic) ([Github](https://github.com/belgotux/ansible-role-basic))
 
 Requirements
 ------------
@@ -16,8 +16,8 @@ The role can work as it with the [default configuration](defaults/main.yml).
 
 ### Optional
 - `docker_extra_users` list of users who need to run docker
-- `bash_alias_shared` enable shared alias (Installed alias in /usr/share only with root user ONLY via `remote_user` or `become` in your playbook) (default no to install only for `remote_user` in his homepath)
-- `bash_alias_dir_share`: (default /usr/share)
+- `docker_bash_alias_shared` enable shared alias (Installed alias in /usr/share only with root user ONLY via `remote_user` or `become` in your playbook) (default no to install only for `remote_user` in his homepath)
+- `docker_bash_alias_dir_share`: (default /usr/share)
 - `networks` list of externel network to add in this format :
 ```yml
    - name: proxy-net
@@ -27,13 +27,13 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `docker_path` specified root directory of docker for settings rights (default /var/lib/docker)
 - `docker_volumes` specified a specifique directory for volumes created on the fly. It will move /var/lib/docker/volumes to this folder and make a link.
 - `docker_data_path` path you choose to put persistent data
-- `granded_group_to_data` group to give access to
-- `granded_read_paths` list of paths to give read access
-- `granded_write_paths` list of paths to give write access
+- `docker_granded_group_to_data` group to give access to
+- `docker_granded_read_paths` list of paths to give read access
+- `docker_granded_write_paths` list of paths to give write access
 - `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 
 ### Automatic
-- `bash_alias_dir` generate on the `bash_alias_shared` flag
+- `docker_bash_alias_dir` generate on the `docker_bash_alias_shared` flag
 
 Example Playbook
 ----------------
@@ -45,7 +45,7 @@ Example Playbook
   roles:
     - name: docker
       vars:
-        bash_alias_shared: yes
+        docker_bash_alias_shared: yes
         docker_networks:
         - name: proxy-net
           subnet: 10.10.11.0/24
@@ -65,7 +65,7 @@ Example Playbook
   roles:
     - name: docker
       vars:
-        bash_alias_shared: no
+        docker_bash_alias_shared: no
         docker_networks:
         - name: proxy-net
           subnet: 10.10.11.0/24

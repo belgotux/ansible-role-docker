@@ -6,15 +6,15 @@
 
 # let group to access to docker "data" path and default volumes path
 # docker_data_path: /var/lib/docker/data
-# granded_group_to_data: docker
-# granded_read_paths:
+# docker_granded_group_to_data: docker
+# docker_granded_read_paths:
 #   - /var/lib/docker/volumes
-# granded_write_paths:
+# docker_granded_write_paths:
 #   - /var/lib/docker/data
 
 #Installed alias in /usr/share (only with root user of become)
-#bash_alias_dir_share: /usr/share
-#bash_alias_shared: yes
+#docker_bash_alias_dir_share: /usr/share
+#docker_bash_alias_shared: yes
 
 #docker_networks:
 # - name: proxy-net

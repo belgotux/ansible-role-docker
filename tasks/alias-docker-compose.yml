@@ -1,11 +1,11 @@
 # Alias bash
 - name: check if basic aliases is used
   stat:
-    path: "{{bash_alias_dir}}/.bash_aliases.d"
+    path: "{{docker_bash_alias_dir}}/.bash_aliases.d"
   register: is_basic_aliases_enabled
-  when: bash_alias_dir is defined
+  when: docker_bash_alias_dir is defined
 
-- name: Install Docker Aliases Files in {{bash_alias_dir}}
+- name: Install Docker Aliases Files in {{docker_bash_alias_dir}}
   copy:
     content: |
       alias dcupd='docker-compose up -d'
@@ -15,6 +15,6 @@
       alias dc='docker-compose'
       alias dfh='df -h | grep -v /var/lib/docker/'
       alias dtest='docker run --name test --rm -it debian:11-slim /bin/bash'
-    dest: "{{bash_alias_dir}}/.bash_aliases.d/docker.aliases"
+    dest: "{{docker_bash_alias_dir}}/.bash_aliases.d/docker.aliases"
     mode: '0644'
-  when: bash_alias_dir is defined and is_basic_aliases_enabled.stat.exists
+  when: docker_bash_alias_dir is defined and is_basic_aliases_enabled.stat.exists
