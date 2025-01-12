@@ -16,6 +16,7 @@
       alias dcdown='{{ _docker_compose_bin }} down'
       alias dcdownv='{{ _docker_compose_bin }} down -v'
       alias dc='{{ _docker_compose_bin }}'
+      alias dclogs='{{ _docker_compose_bin }} logs -f'
       alias ddfh='df -h | grep -v {{ docker_path }}'
       alias dtest='docker run --name test --rm -it debian:11-slim /bin/bash'
     dest: "{{docker_bash_alias_dir}}/.bash_aliases.d/docker.aliases"
