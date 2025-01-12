@@ -1,5 +1,8 @@
 ---
 # tasks file for docker
+- import_tasks: dns-from-host.yml
+  become: true
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '22' and docker_get_host_dns == true and docker_netplan_file is defined
 - import_tasks: install-docker.yml
   become: true
   tags: install

@@ -34,6 +34,9 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `docker_granded_group_to_data` group to give access to
 - `docker_granded_read_paths` list of paths to give read access
 - `docker_granded_write_paths` list of paths to give write access
+- `docker_internal_dns` list if dns use into docker containers (default `["1.1.1.1","1.0.0.1"]`)
+- `docker_get_host_dns` apply the same DNS of the host into containers and not the docker_internal_dns. Need the file path, see bellow (default `false`)
+- `docker_netplan_file`: netplan file to check
 - `docker_log_driver`: change docker driver (default `local`)
 - `docker_log_max_size`: file size (default `10m`)
 - `docker_log_max_files`: number of log files (default `10`)

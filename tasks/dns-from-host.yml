@@ -1,0 +1,20 @@
+- name: load netplan yaml
+  shell: 'cat {{ docker_netplan_file }}'
+  register: docker_netplan
+
+- name: extract data from netplan
+  set_fact:
+    docker_netplan_data: '{{ docker_netplan.stdout | from_yaml }}'
+- name: get first interface
+  set_fact:
+    docker_netplan_first_interface: '{{ docker_netplan_data.network.ethernets.values()|first }}'
+
+- name: set dns variables to json
+  set_fact:
+    docker_internal_dns: '{{ docker_netplan_first_interface.nameservers.addresses | to_json(indent=2) }}'
+
+- name: show dns
+  debug:
+    msg: '{{ docker_internal_dns }}'
+
+#TODO same for Debian
