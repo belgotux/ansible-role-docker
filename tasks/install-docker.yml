@@ -8,7 +8,7 @@
       - gnupg
       - lsb-release
     state: latest
-    update_cache: yes
+    update_cache: true
 - name: Install GPG key
   apt_key:
     id: '{{ docker_apt_key.id }}'
@@ -33,7 +33,7 @@
       - docker-ce-cli
       - containerd.io
     state: latest
-    update_cache: yes
+    update_cache: true
 
 - name: copy daemon.json
   template:

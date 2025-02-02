@@ -61,7 +61,7 @@ Example Playbook
   roles:
     - name: docker
       vars:
-        docker_bash_alias_shared: yes
+        docker_bash_alias_shared: true
         docker_networks:
         - name: proxy-net
           subnet: 10.10.11.0/24
@@ -81,7 +81,7 @@ Example Playbook
   roles:
     - name: docker
       vars:
-        docker_bash_alias_shared: no
+        docker_bash_alias_shared: false
         docker_networks:
         - name: proxy-net
           subnet: 10.10.11.0/24

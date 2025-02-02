@@ -2,7 +2,7 @@
   user:
     name: "{{item}}"
     groups: docker
-    append: yes
+    append: true
   loop: "{{docker_extra_users}}"
   when: docker_extra_users is defined
 
