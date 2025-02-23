@@ -3,8 +3,7 @@
     name: "{{item}}"
     groups: docker
     append: true
-  loop: "{{docker_extra_users}}"
-  when: docker_extra_users is defined
+  loop: '{{ [docker_user] + docker_extra_users }}'
 
 - name: Allow users of docker group to create folder in /etc/docker
   file:
