@@ -4,11 +4,11 @@
     _docker_compose_bin: '{% if docker_compose_use_repository %}docker compose{% else %} docker-compose{% endif %}'
 - name: check if basic aliases is used
   stat:
-    path: "{{docker_bash_alias_dir}}/.bash_aliases.d"
+    path: "{{ docker_bash_alias_dir }}/.bash_aliases.d"
   register: _docker_is_basic_aliases_enabled
   when: docker_bash_alias_dir is defined
 
-- name: Install Docker Aliases Files in {{docker_bash_alias_dir}}
+- name: Install Docker Aliases Files in {{ docker_bash_alias_dir }}
   copy:
     content: |
       alias dcupd='{{ _docker_compose_bin }} up -d'
@@ -19,6 +19,6 @@
       alias dclogs='{{ _docker_compose_bin }} logs -f'
       alias ddfh='df -h | grep -v {{ docker_path }}'
       alias dtest='docker run --name test --rm -it debian:11-slim /bin/bash'
-    dest: "{{docker_bash_alias_dir}}/.bash_aliases.d/docker.aliases"
+    dest: "{{ docker_bash_alias_dir }}/.bash_aliases.d/docker.aliases"
     mode: '0644'
   when: docker_bash_alias_dir is defined and _docker_is_basic_aliases_enabled.stat.exists

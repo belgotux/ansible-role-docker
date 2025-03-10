@@ -3,7 +3,7 @@
   apt:
     pkg:
       - docker-compose-plugin
-    state: latest
+    state: present
   when: docker_compose_use_repository
 
 - name: Install docker-compose standalone
