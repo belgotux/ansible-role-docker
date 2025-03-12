@@ -15,7 +15,7 @@ Role Variables
 The role can work as it with the [default configuration](defaults/main.yml).
 
 ### Needed
-- `docker_data_path` path you choose to put persistent data
+- `docker_data` path you choose to put persistent data
 
 ### Optional
 - `docker_extra_users` list of users who need to run docker
@@ -28,9 +28,9 @@ The role can work as it with the [default configuration](defaults/main.yml).
    subnet: 10.10.11.0/24
    gateway: 10.10.11.1
 ```
-- `docker_path` specified root directory of docker for settings rights (default /var/lib/docker)
+- `docker_conf` specified root directory of docker for settings rights (default /var/lib/docker)
 - `docker_volumes` specified a specifique directory for volumes created on the fly. It will move /var/lib/docker/volumes to this folder and make a link.
-- `docker_data_path` path you choose to put persistent data
+- `docker_data` path you choose to put persistent data
 - `docker_granded_group_to_data` group to give access to
 - `docker_granded_read_paths` list of paths to give read access
 - `docker_granded_write_paths` list of paths to give write access
@@ -45,6 +45,9 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `docker_compose_version`: standalone version to install (default `1.29.2`)
 - `docker_apt_key`: key id and url (default official docker.com)
 - `docker_apt_repo`: apt line to docker repo (default official docker.com)
+- `docker_shared_registries` : set the config.json file and link to all docker's group users to use the same registries (default `true`)
+- `docker_shared_registries_dir` : directory to put config files (default `/etc/docker/shared_config`)
+- `docker_registries` : a list of registries in map format (registry_url, username, password, etc) see bellow
 
 - `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 
@@ -88,6 +91,34 @@ Example Playbook
           gateway: 10.10.11.1
         docker_extra_users:
         - belgotux
+```
+
+### Registries
+
+Shared account for all group members's docker :
+```
+docker_registries:
+  - registry_url: "https://index.docker.io/v1/"
+    config_file: config.json
+    username: xxxxx
+    password: [read token from your account]
+```
+
+Use account for your personnel user (.docker/config.json) :
+```
+docker_registries:
+  - registry_url: "https://index.docker.io/v1/"
+    username: xxxxx
+    password: [read token from your account]
+docker_shared_registries: false
+```
+
+Without url for the docker hub : 
+```
+docker_registries:
+  - username: xxxxx
+    password: [read token from your account]
+docker_shared_registries: false
 ```
 
 License

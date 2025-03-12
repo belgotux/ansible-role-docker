@@ -1,0 +1,51 @@
+- name: Create shared registries directory
+  file:
+    path: '{{ docker_shared_registries_dir }}'
+    state: directory
+    mode: '0750'
+    owner: root
+    group: docker
+
+- name: Login registries
+  docker_login:
+    registry_url: '{{ item.registry_url | d(omit) }}'
+    username: '{{ item.username }}'
+    password: '{{ item.password }}'
+    email: '{{ item.email | d(omit) }}'
+    reauthorize: '{{ item.reauthorize | d(omit) }}'
+    config_path: '{{ docker_shared_registries_dir ~ "/" ~ item.config_file | d((ansible_env.PWD | d("/root")) + "/.docker/config.json") }}'
+    state: '{{ item.state | d("present") }}'
+  loop: '{{ docker_registries }}'
+  loop_control:
+    label: '{{ item.registry_url | d(omit) }}'
+  notify: restart docker
+
+- name: Shared registries
+  when: docker_shared_registries
+  block:
+    - name: Change rights of shared registries
+      file:
+        path: '{{ docker_shared_registries_dir }}/{{ item.config_file | d("config.json") }}'
+        state: file
+        mode: '0640'
+        owner: root
+        group: docker
+      loop: '{{ docker_registries }}'
+      loop_control:
+        label: '{{ item.registry_url | d(omit) }}'
+
+    - name: Get user info
+      getent:
+        database: passwd
+        key: '{{ item }}'
+      loop: '{{ docker_user + docker_extra_users }}'
+      register: _docker_passwd
+
+    - name: Add symlink to all docker users
+      file:
+        src: '{{ docker_shared_registries_dir }}'
+        dest: '{{ item.ansible_facts.getent_passwd[item.item][4] }}/.docker'
+        state: link
+      loop: '{{ _docker_passwd.results }}'
+      loop_control:
+        label: '{{ item.ansible_facts.getent_passwd[item.item][4] }}/.docker'

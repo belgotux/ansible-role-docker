@@ -25,3 +25,7 @@
   become: true
   tags: configure
   when: docker_path != '/var/lib/docker' or docker_volumes is defined
+- import_tasks: common-registries.yml
+  become: true
+  tags: configure
+  when: docker_registries is defined and docker_registries | length > 0
