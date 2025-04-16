@@ -29,7 +29,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
    gateway: 10.10.11.1
 ```
 - `docker_conf` specified root directory of docker for settings rights (default /var/lib/docker)
-- `docker_volumes` specified a specifique directory for volumes created on the fly. It will move /var/lib/docker/volumes to this folder and make a link.
+- `docker_volumes` specified a directory to let docker group users access to vulumes by link
 - `docker_data` path you choose to put persistent data
 - `docker_granded_group_to_data` group to give access to
 - `docker_granded_read_paths` list of paths to give read access
