@@ -45,7 +45,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `docker_compose_version`: standalone version to install (default `1.29.2`)
 - `docker_apt_key`: key id and url (default official docker.com)
 - `docker_apt_repo`: apt line to docker repo (default official docker.com)
-- `docker_shared_registries` : set the config.json file and link to all docker's group users to use the same registries (default `true`)
+- `docker_shared_registries` : set the config.json file and link to all docker's group users to use the same registries, useful for small installation without local registries service (default `false`)
 - `docker_shared_registries_dir` : directory to put config files (default `/etc/docker/shared_config`)
 - `docker_registries` : a list of registries in map format (registry_url, username, password, etc) see bellow
 

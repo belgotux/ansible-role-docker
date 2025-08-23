@@ -1,31 +1,26 @@
 ---
 # tasks file for docker
-- import_tasks: dns-from-host.yml
-  become: true
+- include_tasks: dns-from-host.yml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '22' and docker_get_host_dns and docker_netplan_file is defined
-- import_tasks: install-docker.yml
-  become: true
+- include_tasks: install-docker.yml
   tags: install
-- import_tasks: install-docker-compose.yml
-  become: true
+- include_tasks: install-docker-compose.yml
   when: docker_compose_install
   tags: install
-- import_tasks: users.yml
-  become: true
+- include_tasks: users.yml
   tags: install
-- import_tasks: alias-docker-compose.yml
+- include_tasks: alias-docker-compose.yml
   tags: configure
-- import_tasks: pip-docker.yml
-  become: true
+- include_tasks: pip-docker.yml
   tags: configure
-- import_tasks: networks.yml
-  become: true
+- include_tasks: networks.yml
   tags: configure
-- import_tasks: change-dir.yml
-  become: true
+- include_tasks: change-dir.yml
   tags: configure
   when: docker_path != '/var/lib/docker'
-- import_tasks: common-registries.yml
-  become: true
+- include_tasks: config-registries.yml
   tags: configure
   when: docker_registries is defined and docker_registries | length > 0
+- include_tasks: common-registries.yml
+  tags: configure
+  when: docker_shared_registries and docker_registries is defined and docker_registries | length > 0

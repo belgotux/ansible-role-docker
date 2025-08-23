@@ -1,8 +1,11 @@
 {
-  "dns": {{docker_internal_dns}},
   "log-driver": "{{docker_log_driver}}",
 {% if docker_path != '/var/lib/docker' %}
   "data-root": "{{ docker_path }}",
+{% endif %}
+{% if docker_anonymous_registry is defined %}
+  "insecure-registries" : [ "{{ docker_anonymous_registry }}" ],
+  "registry-mirrors": [ "https://{{ docker_anonymous_registry }}" ],
 {% endif %}
   "log-opts": {
     "max-size": "{{docker_log_max_size}}",
