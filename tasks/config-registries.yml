@@ -1,0 +1,13 @@
+- name: Login registries
+  docker_login:
+    registry_url: '{{ item.registry_url | d(omit) }}'
+    username: '{{ item.username }}'
+    password: '{{ item.password }}'
+    email: '{{ item.email | d(omit) }}'
+    reauthorize: '{{ item.reauthorize | d(omit) }}'
+    config_path: '{{ docker_shared_registries_dir ~ "/" ~ item.config_file | d((ansible_env.PWD | d("/root")) + "/.docker/config.json") }}'
+    state: '{{ item.state | d("present") }}'
+  loop: '{{ docker_registries }}'
+  loop_control:
+    label: '{{ item.registry_url | d(omit) }}'
+  notify: restart docker

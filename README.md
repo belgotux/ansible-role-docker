@@ -48,6 +48,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `docker_shared_registries` : set the config.json file and link to all docker's group users to use the same registries, useful for small installation without local registries service (default `false`)
 - `docker_shared_registries_dir` : directory to put config files (default `/etc/docker/shared_config`)
 - `docker_registries` : a list of registries in map format (registry_url, username, password, etc) see bellow
+- `docker_anonymous_registry` : dns of a anonyme registry use for `insecure-registries` and `registry-mirrors`
 
 - `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 
