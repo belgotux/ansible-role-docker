@@ -42,3 +42,16 @@
     group: root
     mode: '0664'
   notify: restart docker
+
+- name: check natif kernel # avoid WSL
+  shell: uname -r | grep microsoft
+  register: kernel
+  changed_when: false
+  failed_when: false
+
+- name: fix iptables to use services on WSL
+  shell:
+    cmd: |
+      update-alternatives --set iptables /usr/sbin/iptables-legacy
+      update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+  when: kernel.rc is defined and not kernel.rc and ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "24" # only for WSL

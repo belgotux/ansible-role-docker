@@ -5,12 +5,15 @@
     append: true
   loop: '{{ docker_user + docker_extra_users }}'
 
-- name: Allow users of docker group to create folder in /etc/docker
+- name: recreate SSH connexion to apply group changes
+  meta: reset_connection
+
+- name: Allow users of docker group to create folder in {{ docker_conf }}
   file:
-    name: "/etc/docker"
+    name: "{{ docker_conf }}"
     state: directory
-    owner: "root"
-    group: "docker"
+    owner: "{{ docker_granded_user_to_data }}"
+    group: "{{ docker_granded_group_to_data }}"
     mode: '0775'
 
 - name: Allow users of {{ docker_granded_group_to_data }} to navigate to {{ docker_path }}

@@ -21,6 +21,7 @@ docker_bash_alias_shared: true
 docker_bash_alias_dir_share: /usr/share
 docker_bash_alias_dir: "{% if docker_bash_alias_shared is defined and docker_bash_alias_shared %}{{ docker_bash_alias_dir_share }}{% else %}{{ ansible_env.HOME }}{% endif %}"
 docker_extra_users: []
+docker_granded_user_to_data: root
 
 docker_shared_registries: false
 docker_shared_registries_dir: /etc/docker/shared_config
